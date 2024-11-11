@@ -1,39 +1,33 @@
-const canvas = document.querySelector('canvas');
-const value = document.getElementById('value')
+const circle = document.getElementById('circle')
+const radius = circle.r.baseVal.value;
+const circumference = 2 * Math.PI * radius;
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = circumference;
 
-const getRadians=(degree)=>{ // функция для перевода градусов в радианы
-	return Math.PI / 180 * degree;
+function setProgress (percent) {
+    const offset = circumference - percent / 100 * circumference;
+    circle.style.strokeDashoffset=offset
+    console.log(offset)
 }
 
-const getEndAngle = (value)=>{
-    return (4.712)
-}
-const ctx = canvas.getContext('2d');
-let xc = canvas.width / 2
-let	yc = canvas.height / 2
-ctx.beginPath();
-ctx.arc(xc, yc, 80, 4.712,2.832)// arc(x, y, radius, startAngle, endAngle, anticlockwise)
-// Рисуем дугу с центром в точке (x,y) радиусом radius, начиная с угла startAngle и заканчивая в endAngle в направлении против часовой стрелки anticlockwise (по умолчанию по ходу движения часовой стрелки).
-ctx.strokeStyle = "#1CB3FE"
-ctx.lineWidth = 10;
-ctx.stroke() // рисует фигуру с внешеней обводкой
-// ctx.clearRect(0, 0, 320, 234); метод которая стирает canvas
+const textInput = document.getElementById('input')
 
-value.addEventListener('input',()=>{
-    let textValue = document.getElementById('value')
-        progress=textValue.value
-        console.log(progress)
-        const ctx = canvas.getContext('2d');
-        let xc = canvas.width / 2
-        let	yc = canvas.height / 2
-        ctx.beginPath();
-        ctx.arc(xc, yc, 80, 4.71238898038469, getEndAngle(progress))// arc(x, y, radius, startAngle, endAngle, anticlockwise)
-        // Рисуем дугу с центром в точке (x,y) радиусом radius, начиная с угла startAngle и заканчивая в endAngle в направлении против часовой стрелки anticlockwise (по умолчанию по ходу движения часовой стрелки).
-        ctx.strokeStyle = "#1CB3FE"
-        ctx.lineWidth = 10;
-        ctx.stroke() // рисует фигуру с внешеней обводкой
-        // ctx.clearRect(0, 0, 320, 234); метод которая стирает canvas
+
+textInput.onchange=((e)=>{
+    console.log(e.target.value)
+    setProgress(e.target.value)
 })
 
-console.log(getRadians(270),getRadians(135))
-console.log(getEndAngle(0))
+const hideSelector = document.getElementById('hide')
+
+hideSelector.onchange=((e)=>{
+    circle.style.opacity=e.target.checked?0:1
+})
+
+const animateSelector = document.getElementById('animate')
+
+animateSelector.onchange=((e)=>{
+    e.target.checked?circle.classList.add('animated'):circle.classList.remove('animated')
+})
+
+setProgress(50)
