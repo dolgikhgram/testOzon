@@ -12,19 +12,29 @@ html, body {
     transition: stroke-dashoffset 1s;
 }
 
-.animated {
-    animation: fade 2s linear infinite;
+.progress-ring{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes fade {
+.animated {
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
     0% {
-        opacity: 0.3;
+        transform:rotate(0deg);
     }
     100% {
-        opacity: 1;
+        transform:rotate(360deg);
     }
 }
-  
+
+.input-value{
+    width:60px;
+    border-radius: 50px;
+}
 
 *{
     margin: 0;
@@ -102,7 +112,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-  /* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
